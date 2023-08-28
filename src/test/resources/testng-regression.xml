@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression test run">
+
+    <test name="Compute Engine Calculator tests">
+        <classes>
+            <class name="tests.OpenCloudCalculatorTest"></class>
+            <class name="tests.ComputeEngineCalculatorTest"></class>
+            <class name="tests.SendingCalculationByEmailTest"></class>
+        </classes>
+    </test>
+
+</suite>

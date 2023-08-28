@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke test run">
+
+    <test name="Filling Compute Engine Calculator from Properties file">
+        <classes>
+            <class name="tests.FillComputeEngineCalculatorFromPropertiesTest"></class>
+        </classes>
+    </test>
+
+</suite>
