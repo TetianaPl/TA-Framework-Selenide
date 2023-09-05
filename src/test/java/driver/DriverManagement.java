@@ -14,7 +14,6 @@ import java.time.Duration;
 
 public class DriverManagement {
     private static WebDriver driver = null;
-//    private static final String RESOURCES_PATH = "\\src\\test\\resources\\";
 
     public DriverManagement() {
     }

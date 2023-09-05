@@ -9,14 +9,14 @@ public class PropertiesReader {
     static {
         properties = new Properties();
         InputStream inputStream = PropertiesReader.class.getResourceAsStream("/config.properties");
-        try{
+        try {
             properties.load(inputStream);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static String get(String propertyName){
+    public static String get(String propertyName) {
         return PropertiesReader.properties.getProperty(propertyName);
     }
 }

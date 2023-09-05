@@ -7,9 +7,9 @@ import static utils.SwitchToNestedFrame.switchToNestedFrame;
 import static utils.TestDataReader.getTestData;
 
 public class FillComputeEngineCalculatorFromPropertiesTest extends TestSetup {
-
     @Test
-    public void fillCalculatorFormTestFromProperties() {
+    public void fillCalculatorFormTestFromPropertiesTest() {
+        logger.info("The 'fillCalculatorFormTestFromPropertiesTest' test started.");
         driver.get("https://cloud.google.com/products/calculator");
         ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = new ComputeEnginePricingCalculatorPage(driver);
         switchToNestedFrame(driver);
@@ -28,5 +28,6 @@ public class FillComputeEngineCalculatorFromPropertiesTest extends TestSetup {
         computeEngineCalculatorPage.setDatacenterLocation(getTestData("datacenterLocation"));
         computeEngineCalculatorPage.setCommittedUsage(getTestData("committedUsage"));
         computeEngineCalculatorPage.clickAddToEstimate();
+        logger.info("The 'fillCalculatorFormTestFromPropertiesTest' test completed.");
     }
 }
