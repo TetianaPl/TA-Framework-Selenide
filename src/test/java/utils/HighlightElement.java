@@ -1,19 +1,18 @@
 package utils;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
 public class HighlightElement {
-    public static void highlightElement(WebDriver driver, WebElement element) {
+    public static void highlightElement(SelenideElement element) {
         String bg = element.getCssValue("backgroundColor");
-        JavascriptExecutor js = ((JavascriptExecutor) driver);
-        js.executeScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", element);
+
+        Selenide.executeJavaScript("arguments[0].style.backgroundColor = '" + "yellow" + "'", element);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        js.executeScript("arguments[0].style.backgroundColor = '" + bg + "'", element);
+        Selenide.executeJavaScript("arguments[0].style.backgroundColor = '" + bg + "'", element);
     }
 }

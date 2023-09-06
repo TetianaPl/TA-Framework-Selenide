@@ -1,19 +1,19 @@
 package utils;
 
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class ReadResult {
-    public static double readResult(WebDriver driver, String source) {
+    public static double readResult(String source) {
         if (source.equals("email")) {
-            JavascriptExecutor jsExec = (JavascriptExecutor) driver;
-            jsExec.executeScript("arguments[0].scrollIntoView(false);", driver.findElement(By.xpath("//h3[text()='Total Estimated Monthly Cost']")));
+            Selenide.executeJavaScript("arguments[0].scrollIntoView(false);", $(By.xpath("//h3[text()='Total Estimated Monthly Cost']")));
         }
         String result = switch (source) {
             case "calculatorForm" ->
-                    driver.findElement(By.xpath("//*[@id='resultBlock']//b[contains(text(), 'Total Estimated Cost:')]")).getText();
-            case "email" -> driver.findElement(By.xpath("//h2[contains(text(), 'Estimated Monthly Cost:')]")).getText();
+                    $(By.xpath("//*[@id='resultBlock']//b[contains(text(), 'Total Estimated Cost:')]")).getText();
+            case "email" -> $(By.xpath("//h2[contains(text(), 'Estimated Monthly Cost:')]")).getText();
             default -> "";
         };
         return Double.parseDouble(result.split(" USD ")[1].

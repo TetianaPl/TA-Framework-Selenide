@@ -1,17 +1,16 @@
 package utils;
 
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
+import static com.codeborne.selenide.Selenide.$;
 import static utils.HighlightElement.highlightElement;
 
 public class SelectDropdownItem {
-    public static void selectItem(WebDriver driver, String item) {
-        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
-        WebElement element = driver.findElement(By.xpath("//md-option//div[contains(text(), '" + item + "')]"));
-        highlightElement(driver, element);
-        jsExec.executeScript("arguments[0].click();", element);
+    public static void selectItem(String item) {
+        SelenideElement element = $(By.xpath("//md-option//div[contains(text(), '" + item + "')]"));
+        highlightElement(element);
+        Selenide.executeJavaScript("arguments[0].click();", element);
     }
 }

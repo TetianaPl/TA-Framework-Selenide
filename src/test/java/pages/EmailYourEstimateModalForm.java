@@ -1,26 +1,23 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.$;
 import static utils.HighlightElement.highlightElement;
 
-public class EmailYourEstimateModalForm extends PageModel {
-    @FindBy(xpath = "//input[@ng-model='emailQuote.user.email']")
-    private static WebElement emailField;
-    @FindBy(xpath = "//button[contains(text(), 'Send Email')]")
-    private static WebElement sendEmailButton;
-
-    public EmailYourEstimateModalForm(WebDriver driver) {
-        super(driver);
-    }
+public class EmailYourEstimateModalForm {
+    protected static Logger logger = LogManager.getRootLogger();
 
     public void enterEmailAddress(String emailAddress) {
-        highlightElement(driver, emailField);
+        SelenideElement emailField = $(By.xpath("//input[@ng-model='emailQuote.user.email']"));
+        highlightElement(emailField);
         emailField.click();
         emailField.sendKeys(emailAddress);
-        logger.trace("The email address " + emailAddress + " is filled in the Email field on the 'Email Your Estimate' form.");
+        logger.info("The email address " + emailAddress + " is filled in the Email field on the 'Email Your Estimate' form.");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -29,8 +26,9 @@ public class EmailYourEstimateModalForm extends PageModel {
     }
 
     public void clickSendEmailButton() {
-        highlightElement(driver, sendEmailButton);
-        sendEmailButton.click();
-        logger.trace("The 'Email Your Estimate' form submitted.");
+        SelenideElement sendEmailButton = $(By.xpath("//button[contains(text(), 'Send Email')]"));
+        highlightElement(sendEmailButton);
+        Selenide.executeJavaScript("arguments[0].click();", sendEmailButton);
+        logger.info("The 'Email Your Estimate' form submitted.");
     }
 }

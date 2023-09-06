@@ -22,7 +22,7 @@ public class ComputeEnginePricingCalculator {
         this.series = computeEnginePricingCalculatorPage.getSeries();
         this.machineType = computeEnginePricingCalculatorPage.getMachineType();
         this.addGPUs = computeEnginePricingCalculatorPage.getAddGPUs();
-        this.CPUType = computeEnginePricingCalculatorPage.getCPUType();
+        this.CPUType = computeEnginePricingCalculatorPage.getGPUType();
         this.numberOfGPUs = computeEnginePricingCalculatorPage.getNumberOfGPUs();
         this.localSSD = computeEnginePricingCalculatorPage.getLocalSSD();
         this.datacenterLocation = computeEnginePricingCalculatorPage.getDatacenterLocation();

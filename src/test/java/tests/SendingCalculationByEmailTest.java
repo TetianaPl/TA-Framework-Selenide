@@ -1,12 +1,14 @@
 package tests;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 import pages.ComputeEnginePricingCalculatorPage;
 import pages.EmailYourEstimateModalForm;
 
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 import static utils.CreatingEmailAddress.createEmailAddress;
 import static utils.ReadResult.readResult;
@@ -17,42 +19,41 @@ import static utils.SwitchToNewWindow.openAndSwitchToNewWindow;
 public class SendingCalculationByEmailTest extends TestSetup {
     @Test
     public void sendResultsByEmailTest() {
-        logger.info("The 'sendResultsByEmailTest' test started.");
-        driver.get("https://cloud.google.com/products/calculator#id=acb50003-b82f-4780-a931-6fbc240c3588");
-        String originalWindow = driver.getWindowHandle();
-        ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = new ComputeEnginePricingCalculatorPage(driver);
-        switchToNestedFrame(driver);
+        logger.trace("The 'sendResultsByEmailTest' test started.");
+        ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = open("https://cloud.google.com/products/calculator#id=acb50003-b82f-4780-a931-6fbc240c3588", ComputeEnginePricingCalculatorPage.class);
+        getWebDriver().manage().window().maximize();
+        String originalWindow = getWebDriver().getWindowHandle();
+        switchToNestedFrame();
 
-        double resultFromCalculatorPage = readResult(driver, "calculatorForm");
-        logger.trace("resultFromCalculatorPage = " + resultFromCalculatorPage);
+        double resultFromCalculatorPage = readResult("calculatorForm");
+        logger.debug("resultFromCalculatorPage = " + resultFromCalculatorPage);
 
         EmailYourEstimateModalForm modalWindow = computeEngineCalculatorPage.clickEmailEstimate();
 
-        String newWindow = openAndSwitchToNewWindow(driver);
+        String newWindow = openAndSwitchToNewWindow();
 
-        String emailAddress = createEmailAddress(driver);
-        logger.trace("Email address created: " + emailAddress);
+        String emailAddress = createEmailAddress();
+        logger.debug("Email address created: " + emailAddress);
 
-        driver.switchTo().window(originalWindow);
-        driver.switchTo().defaultContent();
-        switchToNestedFrame(driver);
+        switchTo().window(originalWindow);
+        switchTo().defaultContent();
+        switchToNestedFrame();
 
         sendCalculation(modalWindow, emailAddress);
 
-        driver.switchTo().window(newWindow);
-        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
-        jsExec.executeScript("window.scrollBy(0,document.body.scrollHeight)");
-        jsExec.executeScript("window.scrollBy(0,-300)");
+        switchTo().window(newWindow);
+        Selenide.executeJavaScript("window.scrollBy(0,document.body.scrollHeight)");
+        Selenide.executeJavaScript("window.scrollBy(0,-300)");
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText("Google Cloud Price Estimate"))).click();
+        $(By.partialLinkText("Google Cloud Price Estimate")).shouldBe(Condition.appear).click();
 
-        double resultFromEmail = readResult(driver, "email");
-        logger.trace("resultFromEmail = " + resultFromEmail);
+        double resultFromEmail = readResult("email");
+        logger.debug("resultFromEmail = " + resultFromEmail);
 
         if (resultFromCalculatorPage != resultFromEmail) {
             logger.error("Assertion failed. The estimated price in the email: " + resultFromEmail + " does not match the estimated price on the Calculator Page: " + resultFromCalculatorPage);
         }
         assertEquals(resultFromCalculatorPage, resultFromEmail);
-        logger.info("The 'sendResultsByEmailTest' test completed.");
+        logger.trace("The 'sendResultsByEmailTest' test completed.");
     }
 }

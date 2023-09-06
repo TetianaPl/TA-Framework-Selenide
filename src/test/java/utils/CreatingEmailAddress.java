@@ -1,26 +1,26 @@
 package utils;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.time.Duration;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+import static utils.HighlightElement.highlightElement;
 
 public class CreatingEmailAddress {
-    public static String createEmailAddress(WebDriver driver) {
-        driver.get("https://temp-mail.org/en/");
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    public static String createEmailAddress() {
+        open("https://temp-mail.org/en/");
 
-        WebElement copyButton = driver.findElement(By.xpath("//button[@class = 'btn-rds icon-btn bg-theme click-to-copy copyIconGreenBtn']"));
+        SelenideElement copyButton = $(By.xpath("//button[@class = 'btn-rds icon-btn bg-theme click-to-copy copyIconGreenBtn']"));
+        copyButton.shouldBe(Condition.enabled).click();
+        highlightElement(copyButton);
 
-        wait.until(ExpectedConditions.elementToBeClickable(copyButton)).click();
         String emailAddress;
         try {
             emailAddress = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
