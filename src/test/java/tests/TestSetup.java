@@ -15,6 +15,6 @@ public class TestSetup {
     public void testSetup() {
         Configuration.browser = System.getProperty("browser");
         Configuration.timeout = 15000;
-        Configuration.reportsFolder = ".//target/screenshots/";
+        Configuration.reportsFolder = ".//target/surefire-reports/";
     }
 }
