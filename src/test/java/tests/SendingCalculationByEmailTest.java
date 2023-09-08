@@ -19,7 +19,7 @@ import static utils.SwitchToNewWindow.openAndSwitchToNewWindow;
 public class SendingCalculationByEmailTest extends TestSetup {
     @Test
     public void sendResultsByEmailTest() {
-        logger.trace("The 'sendResultsByEmailTest' test started.");
+        logger.info("The 'sendResultsByEmailTest' test started.");
         ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = open("https://cloud.google.com/products/calculator#id=acb50003-b82f-4780-a931-6fbc240c3588", ComputeEnginePricingCalculatorPage.class);
         getWebDriver().manage().window().maximize();
         String originalWindow = getWebDriver().getWindowHandle();
@@ -42,10 +42,10 @@ public class SendingCalculationByEmailTest extends TestSetup {
         sendCalculation(modalWindow, emailAddress);
 
         switchTo().window(newWindow);
-        Selenide.executeJavaScript("window.scrollBy(0,document.body.scrollHeight)");
+//        Selenide.executeJavaScript("window.scrollBy(0,document.body.scrollHeight)");
         Selenide.executeJavaScript("window.scrollBy(0,-300)");
 
-        $(By.partialLinkText("Google Cloud Price Estimate")).shouldBe(Condition.appear).click();
+        Selenide.executeJavaScript("arguments[0].click();", $(By.partialLinkText("Google Cloud Price Estimate")).shouldBe(Condition.appear));
 
         double resultFromEmail = readResult("email");
         logger.debug("resultFromEmail = " + resultFromEmail);
@@ -54,6 +54,6 @@ public class SendingCalculationByEmailTest extends TestSetup {
             logger.error("Assertion failed. The estimated price in the email: " + resultFromEmail + " does not match the estimated price on the Calculator Page: " + resultFromCalculatorPage);
         }
         assertEquals(resultFromCalculatorPage, resultFromEmail);
-        logger.trace("The 'sendResultsByEmailTest' test completed.");
+        logger.info("The 'sendResultsByEmailTest' test completed.");
     }
 }

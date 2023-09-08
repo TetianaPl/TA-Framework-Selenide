@@ -11,7 +11,7 @@ import static utils.TestDataReader.getTestData;
 public class FillComputeEngineCalculatorFromPropertiesTest extends TestSetup {
     @Test
     public void fillCalculatorFormTestFromPropertiesTest() {
-        logger.trace("The 'fillCalculatorFormTestFromPropertiesTest' test started.");
+        logger.info("The 'fillCalculatorFormTestFromPropertiesTest' test started.");
         ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = open("https://cloud.google.com/products/calculator", ComputeEnginePricingCalculatorPage.class);
         getWebDriver().manage().window().maximize();
         switchToNestedFrame();
@@ -30,6 +30,6 @@ public class FillComputeEngineCalculatorFromPropertiesTest extends TestSetup {
         computeEngineCalculatorPage.setDatacenterLocation(getTestData("datacenterLocation"));
         computeEngineCalculatorPage.setCommittedUsage(getTestData("committedUsage"));
         computeEngineCalculatorPage.clickAddToEstimate();
-        logger.trace("The 'fillCalculatorFormTestFromPropertiesTest' test completed.");
+        logger.info("The 'fillCalculatorFormTestFromPropertiesTest' test completed.");
     }
 }

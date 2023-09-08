@@ -179,7 +179,7 @@ public class ComputeEnginePricingCalculatorPage {
     public EmailYourEstimateModalForm clickEmailEstimate() {
         SelenideElement emailButton = $(By.id("Email Estimate"));
         highlightElement(emailButton);
-        emailButton.click();
+        Selenide.executeJavaScript("arguments[0].click();", emailButton);
         logger.info("Request to send a result by email has been submitted.");
         return page(EmailYourEstimateModalForm.class);
     }

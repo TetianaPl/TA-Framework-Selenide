@@ -11,7 +11,7 @@ public class ComputeEngineCalculatorTest extends TestSetup {
 
     @Test
     public void fillCalculatorFormTest() {
-        logger.trace("The 'fillCalculatorFormTest' test started.");
+        logger.info("The 'fillCalculatorFormTest' test started.");
         ComputeEnginePricingCalculatorPage computeEngineCalculatorPage = open("https://cloud.google.com/products/calculator", ComputeEnginePricingCalculatorPage.class);
         getWebDriver().manage().window().maximize();
         switchToNestedFrame();
@@ -29,6 +29,6 @@ public class ComputeEngineCalculatorTest extends TestSetup {
         computeEngineCalculatorPage.setDatacenterLocation("Frankfurt");
         computeEngineCalculatorPage.setCommittedUsage("1 Year");
         computeEngineCalculatorPage.clickAddToEstimate();
-        logger.trace("The 'fillCalculatorFormTest' test completed.");
+        logger.info("The 'fillCalculatorFormTest' test completed.");
     }
 }

@@ -12,17 +12,22 @@ public class OpenCloudCalculatorTest extends TestSetup {
     @Test
     public void openCloudCalculatorTest() {
         String expectedURL = "https://cloud.google.com/products/calculator";
-        logger.trace("The 'openCloudCalculatorTest' test started.");
+        logger.info("The 'openCloudCalculatorTest' test started.");
         CloudGooglePage cloudGooglePage = open("https://cloud.google.com/", CloudGooglePage.class);
         getWebDriver().manage().window().maximize();
         cloudGooglePage.enterSearchQuery("Google Cloud Platform Pricing Calculator");
         cloudGooglePage.findInSearchResults("Google Cloud Pricing Calculator");
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (!url().equals(expectedURL)) {
             logger.error("Assertion failed.\nExpected URL is " + expectedURL + "\nBut current URL is " + url());
         }
         assertEquals(url(), expectedURL);
 
-        logger.trace("The 'openCloudCalculatorTest' test completed.");
+        logger.info("The 'openCloudCalculatorTest' test completed.");
     }
 }
