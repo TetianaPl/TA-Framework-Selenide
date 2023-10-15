@@ -23,7 +23,7 @@ public class ComputeEngineCalculatorTest extends TestSetup {
         computeEngineCalculatorPage.setMachineType("n1-standard-8");
         computeEngineCalculatorPage.setAddGPUs(true);
 //        computeEngineCalculatorPage.setCPUType("NVIDIA Tesla V100");
-        computeEngineCalculatorPage.setGPUType("NVIDIA Tesla P100");
+        computeEngineCalculatorPage.setGPUType("NVIDIA Tesla P101");
         computeEngineCalculatorPage.setNumberOfGPUs(1);
         computeEngineCalculatorPage.setLocalSSD("2x375");
         computeEngineCalculatorPage.setDatacenterLocation("Frankfurt");
